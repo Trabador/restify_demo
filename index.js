@@ -1,6 +1,7 @@
 const restify = require('restify');
 const mongoose = require('mongoose');
 const config = require('./config');
+const customersRouter = require('./routes/customers');
 
 const server = restify.createServer();
 
@@ -16,6 +17,6 @@ const db = mongoose.connection;
 
 db.on('error', (err) => { console.log(err) });
 db.once('open', () => {
-    require('./routes/customers') (server);
+    customersRouter.applyRoutes(server);
     console.log(`Server Started on port ${config.PORT}`);
 });
